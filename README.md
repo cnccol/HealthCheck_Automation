@@ -6,6 +6,6 @@ Package to automate the healthcheck of video based applications
 
 Install Golang [click here](https://golang.org/doc/install) or use the docker image using
 
-`docker build -t automate .`
+`docker build -t automate app/`
 
 `docker run -i -t --network host -v "$(pwd)":/apps automate`
