@@ -5,24 +5,32 @@ import(
 	"time"
 	"fmt"
 	"io/ioutil"
+	"encoding/json"
+	"bytes"
 )
 
-func Send(){
+func Send(d Data) error {
 	netClient := http.Client{
 		Timeout: time.Second * 10,
 	}
-	response, err := netClient.Get("http://127.0.0.1:9000/data")
+	vals, err :=json.Marshal(d)
+
 	if err != nil {
-		fmt.Printf("Error %v\n", err)
+		return err
+	}
+
+	response, err := netClient.Post("http://127.0.0.1:9000/data", "application/json", bytes.NewBuffer(vals))
+	if err != nil {
+		return err
 	}
 	defer response.Body.Close()
 
 	body, err := ioutil.ReadAll(response.Body)
 
 	if err != nil {
-		fmt.Printf("Error %v\n", err)
+		return err
 	}
 
 	fmt.Printf("Get %v\n", string(body))
-
+	return nil
 }
