@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"encoding/json"
+	"time"
 )
 
 type Data struct {
@@ -23,6 +24,11 @@ func Run(){
 
 	datos = append(datos, Data{Id: 1, VideoSize: 2})
 	router.HandleFunc("/data", getData).Methods("GET")
-
-	http.ListenAndServe(":9000", router)
+	srv := &http.Server{
+		Handler: router,
+		Addr: ":9000",
+		ReadTimeout: 10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	srv.ListenAndServe()
 }
