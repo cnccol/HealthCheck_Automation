@@ -7,9 +7,11 @@ import(
 	"io/ioutil"
 	"encoding/json"
 	"bytes"
+	"github.com/cnccol/HealthCheck_Automation/Common"
 )
 
-func Send(d Data) error {
+func Send(d Common.Data) error {
+	
 	netClient := http.Client{
 		Timeout: time.Second * 10,
 	}

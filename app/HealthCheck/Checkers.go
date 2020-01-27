@@ -1,13 +1,15 @@
 package healthCheck
 
-func CheckVideoSize(name string) int{
-	return 1
-}
+import (
+	"os"
+)
 
-func CheckCsvSize(name string) int{
-	return 2
-}
+func CheckFileSize(name string) int64{
+	fi, err := os.Stat(name)
 
-func CheckEncodingSize(name string) int{
-	return 3
+	if err != nil {
+	  return 0
+	}
+
+	return fi.Size()
 }

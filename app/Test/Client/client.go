@@ -1,12 +1,15 @@
 package main
 
 import(
-	/* "fmt"
+	/* "fmt" */
 	"time"
-	"os" */
+	//"os"
 	"github.com/cnccol/HealthCheck_Automation/HealthCheck"
 )
 
 func main() {
-	healthCheck.Run()
+	currentTime := time.Now()
+	timeStampString := currentTime.Format("2006-01-02") 
+	name := timeStampString+".txt"
+	healthCheck.Run(name)
 }

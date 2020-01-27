@@ -3,20 +3,13 @@ package healthCheck
 import(
 	"time"
 	"math/rand"
-	"fmt"
+	"github.com/cnccol/HealthCheck_Automation/Common"
 )
 
-type Data struct {
-	Id int `json:"Id"`
-	VideoSize int `json:"VideoSize"`
-}
-func (p Data) String() string{
-	return fmt.Sprintf("{Id: %v, VideoSize: %v}", p.Id, p.VideoSize)
-}
-func Run() {
+func Run(day string) {
 	for {
-		time.Sleep(3 * time.Second)
-		v := Data{Id: rand.Intn(1000), VideoSize: rand.Intn(1000)}
+		time.Sleep(5 * time.Second)
+		v := Common.Data{ Id: rand.Intn(1000), VideoName: day ,VideoSize: CheckFileSize("videos/"+day) }
 		err := Send(v)
 		if err != nil {
 			panic(err)
